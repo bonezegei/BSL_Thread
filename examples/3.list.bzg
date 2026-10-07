@@ -1,0 +1,39 @@
+/*
+    This example demonstrates how to list all active threads in the thread manager. It creates a thread that runs an infinite loop, and after a short delay, it lists the active threads. The example also shows how to gracefully stop the thread by using a global flag and waiting for the thread to finish its execution before exiting.
+    Author: Jofel Batutay (Bonezegei)
+    Date: October 7, 2026
+*/
+include("lib/thread.bzg");
+
+var threadMgr = thread();
+
+// 1. Create a global flag to control the thread
+var keepRunning = true;
+
+function infiniteTask() {
+    // 2. The thread checks the flag every loop
+    while (keepRunning) {
+        print("Working forever...");
+        delay(500);
+    }
+    print("Thread received stop signal. Exiting gracefully!");
+}
+
+var myThread = threadMgr.create(infiniteTask);
+myThread.run();
+
+delay(1600); // Let it run for a little bit
+
+var activeThreads = threadMgr.list();
+print("Active threads count: " + sizeof(activeThreads)); // or sizeof() if your VM uses that
+
+print("Gracefully asking the thread to stop...");
+// 3. Change the flag to stop the loop
+keepRunning = false; 
+
+// 4. Safely wait for the thread to finish its last loop and exit
+myThread.join(); 
+
+// Prove it's dead
+var remainingThreads = threadMgr.list();
+print("Active threads now: " + sizeof(remainingThreads));
