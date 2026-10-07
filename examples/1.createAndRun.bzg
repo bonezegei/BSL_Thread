@@ -1,0 +1,38 @@
+/*
+    This example demonstrates how to create and run multiple threads using the thread library in BZG. Each thread will print its own counter value at different intervals, showcasing concurrent execution.
+    Author: Jofel Batutay (Bonezegei)
+    Date: October 7, 2026
+*/
+
+include("lib/thread.bzg");
+
+var threadMgr = thread();
+
+function th1() {
+    var i = 0;
+    while (true) {
+        print("Thread 1: " + i);
+        delay(10);
+        i++;
+    }
+}
+
+function th2() {
+    var i = 0;
+    while (true) {
+        print("Thread 2: " + i);
+        delay(5);
+        i++;
+    }
+}
+
+var t1 = threadMgr.create(th1);
+var t2 = threadMgr.create(th2);
+
+// Run them both in parallel
+t1.run(); 
+t2.run();
+
+// Wait for both to finish
+t1.join();
+t2.join();

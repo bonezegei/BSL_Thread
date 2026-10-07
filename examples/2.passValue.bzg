@@ -1,0 +1,27 @@
+/*
+    This example demonstrates how to pass arguments to a thread function in BZG. Each thread will simulate downloading a file by printing messages before and after a delay, showcasing how to handle parameters in concurrent execution.
+    Author: Jofel Batutay (Bonezegei)
+    Date: October 7, 2026
+*/
+include("lib/thread.bzg");
+
+var threadMgr = thread();
+
+// A function that takes arguments
+function downloadFile(filename, waitTime) {
+    print("Starting download for: " + filename);
+    delay(waitTime);
+    print("Finished downloading: " + filename);
+}
+
+// Pass arguments after the function name
+var th1 = threadMgr.create(downloadFile, "image.png", 2000);
+var th2 = threadMgr.create(downloadFile, "data.json", 1000);
+
+// Run them both in parallel
+th1.run();
+th2.run();
+
+// Wait for both to finish
+th1.join();
+th2.join();
