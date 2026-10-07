@@ -1,0 +1,38 @@
+{
+  "name": "Thread Library",
+  "version": "1.1.0",
+  "functions": {
+    "thread": {
+      "info": "Creates a new thread instance",
+      "params": "",
+      "req_params": 0,
+      "methods": {
+        "create": {
+          "info": "Creates a new thread instance",
+          "params": "function, ...args",
+          "req_params": 1
+        },
+        "run": {
+          "info": "Runs the thread",
+          "params": "",
+          "req_params": 0
+        },
+        "join": {
+          "info": "Waits for the thread to finish",
+          "params": "",
+          "req_params": 0
+        },
+        "kill": {
+          "info": "Kills the thread",
+          "params": "",
+          "req_params": 0
+        },
+        "list": {
+          "info": "Lists all active threads",
+          "params": "",
+          "req_params": 0
+        }
+      }
+    }
+  }
+}
